@@ -69,7 +69,7 @@ export default function Loja() {
       <div className="container mx-auto max-w-6xl relative">
         <div className="text-center mb-12">
           <h1 className="font-medieval text-4xl md:text-5xl text-amber-400 mb-4" data-testid="text-loja-title">
-            Loja do Servidor
+            Loja ReinadoRPG
           </h1>
           <p className="font-body text-lg text-amber-200/80 max-w-2xl mx-auto">
             Adquira itens exclusivos e apoie o servidor! Clique em comprar para enviar

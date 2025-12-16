@@ -2,7 +2,8 @@ import { useState } from "react";
 import { Link, useLocation } from "wouter";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { Menu, Home, ShoppingBag, ScrollText, Terminal, X } from "lucide-react";
+import { Menu, Home, ShoppingBag, ScrollText, Terminal } from "lucide-react";
+import ThemeToggle from "./ThemeToggle";
 
 const navItems = [
   { path: "/", label: "Inicio", icon: Home },
@@ -21,7 +22,7 @@ export default function Navigation() {
         <div className="flex items-center justify-between h-16 gap-4">
           <Link href="/">
             <span className="font-medieval text-2xl text-amber-400 cursor-pointer" data-testid="link-home-logo">
-              RPG Medieval
+              ReinadoRPG
             </span>
           </Link>
 
@@ -42,6 +43,11 @@ export default function Navigation() {
                 </Link>
               );
             })}
+            <ThemeToggle />
+          </div>
+
+          <div className="md:hidden">
+            <ThemeToggle />
           </div>
 
           <Sheet open={isOpen} onOpenChange={setIsOpen}>

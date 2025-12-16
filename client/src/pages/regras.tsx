@@ -52,7 +52,7 @@ export default function Regras() {
       <div className="container mx-auto max-w-4xl relative">
         <div className="text-center mb-12">
           <h1 className="font-medieval text-4xl md:text-5xl text-amber-400 mb-4" data-testid="text-regras-title">
-            Regras, Leis e Normas
+            Regras ReinadoRPG
           </h1>
           <p className="font-body text-lg text-amber-200/80 max-w-2xl mx-auto">
             Para garantir uma experiencia justa e agradavel para todos os jogadores,

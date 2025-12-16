@@ -44,7 +44,7 @@ const commands = [
   { category: "Outros", command: "/helpop (mensagem)", description: "Envia uma mensagem de ajuda diretamente para a Staff online." },
 ];
 
-const categories = [...new Set(commands.map((c) => c.category))];
+const categories = Array.from(new Set(commands.map((c) => c.category)));
 
 export default function Comandos() {
   const [search, setSearch] = useState("");
@@ -73,7 +73,7 @@ export default function Comandos() {
       <div className="container mx-auto max-w-6xl relative">
         <div className="text-center mb-8">
           <h1 className="font-medieval text-4xl md:text-5xl text-amber-400 mb-4" data-testid="text-comandos-title">
-            Comandos do Servidor
+            Comandos ReinadoRPG
           </h1>
           <p className="font-body text-lg text-amber-200/80 max-w-2xl mx-auto">
             Lista completa de comandos disponiveis para todos os jogadores.

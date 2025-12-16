@@ -22,7 +22,7 @@ export default function HeroSection() {
           className="font-medieval text-5xl md:text-7xl text-amber-400 drop-shadow-lg"
           data-testid="text-hero-title"
         >
-          RPG Medieval
+          ReinadoRPG
         </h1>
         <p className="font-body text-xl md:text-2xl text-amber-100/90 max-w-2xl">
           Aventure-se em um mundo de fantasia, batalhas epicas e magia!
@@ -53,7 +53,7 @@ export default function HeroSection() {
         </div>
 
         <div className="mt-8 font-body text-amber-300/70">
-          <p>IP do Servidor: <code className="font-mono text-amber-400">sd-br7.blazebr.com:25575</code></p>
+          <p>IP do Servidor: <code className="font-mono text-amber-400">jogar.reinadorpg.com.br</code></p>
         </div>
       </div>
     </section>
