@@ -4,6 +4,8 @@ import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Menu, Home, ShoppingBag, ScrollText, Terminal } from "lucide-react";
 import ThemeToggle from "./ThemeToggle";
+import CartButton from "./CartButton";
+import LanguageSelector from "./LanguageSelector";
 
 const navItems = [
   { path: "/", label: "Inicio", icon: Home },
@@ -17,11 +19,11 @@ export default function Navigation() {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-black/80 backdrop-blur-md border-b border-amber-900/50">
+    <nav className="fixed top-0 left-0 right-0 z-50 bg-stone-900/95 dark:bg-stone-950/95 backdrop-blur-md border-b border-amber-900/50">
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16 gap-4">
           <Link href="/">
-            <span className="font-medieval text-2xl text-amber-400 cursor-pointer" data-testid="link-home-logo">
+            <span className="font-medieval text-2xl text-amber-500 dark:text-amber-400 cursor-pointer" data-testid="link-home-logo">
               ReinadoRPG
             </span>
           </Link>
@@ -34,7 +36,7 @@ export default function Navigation() {
                 <Link key={item.path} href={item.path}>
                   <Button
                     variant={isActive ? "default" : "ghost"}
-                    className={`font-medieval ${isActive ? "bg-amber-700 text-white" : "text-amber-200"}`}
+                    className={`font-medieval ${isActive ? "bg-amber-700 text-white" : "text-amber-800 dark:text-amber-200"}`}
                     data-testid={`link-nav-${item.label.toLowerCase()}`}
                   >
                     <Icon className="w-4 h-4 mr-2" />
@@ -43,20 +45,24 @@ export default function Navigation() {
                 </Link>
               );
             })}
+            <LanguageSelector />
             <ThemeToggle />
+            <CartButton />
           </div>
 
-          <div className="md:hidden">
+          <div className="flex items-center gap-2 md:hidden">
+            <LanguageSelector />
             <ThemeToggle />
+            <CartButton />
           </div>
 
           <Sheet open={isOpen} onOpenChange={setIsOpen}>
             <SheetTrigger asChild className="md:hidden">
               <Button variant="ghost" size="icon" data-testid="button-mobile-menu">
-                <Menu className="w-6 h-6 text-amber-400" />
+                <Menu className="w-6 h-6 text-amber-500 dark:text-amber-400" />
               </Button>
             </SheetTrigger>
-            <SheetContent side="right" className="bg-black/95 border-amber-900/50">
+            <SheetContent side="right" className="bg-stone-900 dark:bg-stone-950 border-amber-900/50">
               <div className="flex flex-col gap-4 mt-8">
                 {navItems.map((item) => {
                   const Icon = item.icon;

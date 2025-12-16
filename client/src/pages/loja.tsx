@@ -1,6 +1,20 @@
 import ShopItem from "@/components/ShopItem";
-import { Shield, Crown, Sword, Sparkles, Star, Zap } from "lucide-react";
+import { Shield, Crown, Coins } from "lucide-react";
 import backgroundImage from "@assets/background_1765854796078.jpg";
+
+const vipPackageItems = [
+  "Armadura com todos os tipos de Protecao",
+  "Reparacao na armadura Inquebravel 4",
+  "Totem (1)",
+  "Pack (64) de frasco de XP",
+  "8 blocos de ferro, esmeralda, ouro e lapis lazuli",
+  "Casco de shulker (1)",
+  "Pack (64) flechas",
+  "33 barras de ferro",
+  "20 lapis lazuli",
+  "Pe de coelho e pele de coelho",
+  "2 packs (128) de costela de porco",
+];
 
 const shopItems = [
   {
@@ -12,43 +26,52 @@ const shopItems = [
     popular: true,
   },
   {
-    id: "vip",
-    name: "VIP",
-    description: "Acesso a comandos exclusivos, kits especiais e beneficios unicos.",
-    price: 25.0,
+    id: "vip-cavaleiro",
+    name: "VIP - Cavaleiro do Futuro",
+    description: "Pacote VIP completo com armadura encantada, itens exclusivos e muito mais!",
+    price: 50.0,
     icon: <Crown className="w-6 h-6" />,
+    popular: true,
+    packageItems: vipPackageItems,
+  },
+  {
+    id: "coins-100",
+    name: "100 BronzeCoins",
+    description: "Pacote inicial de moedas para usar no servidor.",
+    price: 5.0,
+    icon: <Coins className="w-6 h-6" />,
+    popular: false,
+  },
+  {
+    id: "coins-574",
+    name: "574 BronzeCoins",
+    description: "Pacote medio de moedas com bonus incluso.",
+    price: 23.0,
+    icon: <Coins className="w-6 h-6" />,
+    popular: false,
+  },
+  {
+    id: "coins-1050",
+    name: "1050 BronzeCoins",
+    description: "Pacote grande de moedas - melhor custo-beneficio!",
+    price: 46.9,
+    icon: <Coins className="w-6 h-6" />,
     popular: true,
   },
   {
-    id: "vip-plus",
-    name: "VIP+",
-    description: "Todos os beneficios do VIP, mais homes, kits melhores e mais!",
-    price: 40.0,
-    icon: <Star className="w-6 h-6" />,
+    id: "coins-2432",
+    name: "2432 BronzeCoins",
+    description: "Mega pacote de moedas para jogadores dedicados.",
+    price: 120.0,
+    icon: <Coins className="w-6 h-6" />,
     popular: false,
   },
   {
-    id: "kit-guerreiro",
-    name: "Kit Guerreiro",
-    description: "Armadura de ferro completa + espada de diamante encantada.",
-    price: 10.0,
-    icon: <Sword className="w-6 h-6" />,
-    popular: false,
-  },
-  {
-    id: "kit-mago",
-    name: "Kit Mago",
-    description: "Itens magicos, pocoes e equipamentos para dominar a magia.",
-    price: 12.0,
-    icon: <Sparkles className="w-6 h-6" />,
-    popular: false,
-  },
-  {
-    id: "booster-xp",
-    name: "Booster XP",
-    description: "2x de experiencia por 7 dias! Suba de nivel mais rapido.",
-    price: 8.0,
-    icon: <Zap className="w-6 h-6" />,
+    id: "coins-5000",
+    name: "5000 BronzeCoins",
+    description: "Pacote supremo! Moedas suficientes para dominar o servidor.",
+    price: 345.0,
+    icon: <Coins className="w-6 h-6" />,
     popular: false,
   },
 ];
@@ -64,7 +87,7 @@ export default function Loja() {
         backgroundAttachment: "fixed",
       }}
     >
-      <div className="absolute inset-0 bg-black/80 -z-10 fixed" />
+      <div className="absolute inset-0 bg-black/80 dark:bg-black/80 -z-10 fixed" />
 
       <div className="container mx-auto max-w-6xl relative">
         <div className="text-center mb-12">
@@ -72,8 +95,8 @@ export default function Loja() {
             Loja ReinadoRPG
           </h1>
           <p className="font-body text-lg text-amber-200/80 max-w-2xl mx-auto">
-            Adquira itens exclusivos e apoie o servidor! Clique em comprar para enviar
-            seu pedido diretamente pelo WhatsApp.
+            Adquira itens exclusivos e apoie o servidor! Adicione os itens ao carrinho
+            e finalize sua compra pelo WhatsApp.
           </p>
         </div>
 
@@ -87,6 +110,7 @@ export default function Loja() {
               price={item.price}
               icon={item.icon}
               popular={item.popular}
+              packageItems={item.packageItems}
             />
           ))}
         </div>

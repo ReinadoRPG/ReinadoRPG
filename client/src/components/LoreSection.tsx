@@ -13,12 +13,12 @@ export default function LoreSection() {
       <div className="absolute inset-0 bg-black/85" />
 
       <div className="container mx-auto max-w-3xl relative z-10">
-        <Card className="bg-black/60 backdrop-blur-sm border-amber-900/50 p-8 md:p-12">
+        <Card className="bg-stone-900/80 dark:bg-stone-900/80 backdrop-blur-sm border-amber-900/50 p-8 md:p-12">
           <div className="text-center">
             <h2 className="font-medieval text-3xl md:text-4xl text-amber-400 mb-6" data-testid="text-lore-title">
-              A Historia de Aeldrynn
+              Sobre o Servidor/Lore
             </h2>
-            <p className="font-body text-lg text-amber-100 leading-relaxed whitespace-pre-line">
+            <p className="font-body text-lg text-amber-100 leading-relaxed">
               O continente de Aeldrynn é dividido em 5 grandes regiões, cada uma com sua história, cidades, conflitos e criaturas próprias. No centro de tudo, um poder antigo desperta..
             </p>
           </div>

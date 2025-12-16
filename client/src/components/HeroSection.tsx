@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
 import { SiDiscord } from "react-icons/si";
 import { SiWhatsapp } from "react-icons/si";
 import ServerStatus from "./ServerStatus";
@@ -52,9 +53,22 @@ export default function HeroSection() {
           </Button>
         </div>
 
-        <div className="mt-8 font-body text-amber-300/70">
-          <p>IP do Servidor: <code className="font-mono text-amber-400">jogar.reinadorpg.com.br</code></p>
-        </div>
+        <Card className="mt-8 bg-black/60 backdrop-blur-sm border-amber-900/50 p-6 max-w-md w-full">
+          <div className="space-y-3 text-left">
+            <div>
+              <p className="font-medieval text-amber-300 text-sm">Java</p>
+              <code className="font-mono text-amber-400 text-lg" data-testid="text-ip-java">
+                jogar.reinadorpg.com.br
+              </code>
+            </div>
+            <div>
+              <p className="font-medieval text-amber-300 text-sm">Bedrock/Mobile</p>
+              <code className="font-mono text-amber-400 text-lg" data-testid="text-ip-bedrock">
+                sd-br7.blazebr.com:25575
+              </code>
+            </div>
+          </div>
+        </Card>
       </div>
     </section>
   );

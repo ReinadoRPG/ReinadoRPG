@@ -10,6 +10,8 @@ import Loja from "@/pages/loja";
 import Regras from "@/pages/regras";
 import Comandos from "@/pages/comandos";
 import NotFound from "@/pages/not-found";
+import { CartProvider } from "@/context/CartContext";
+import { LanguageProvider } from "@/context/LanguageContext";
 
 function Router() {
   return (
@@ -26,16 +28,20 @@ function Router() {
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
-      <TooltipProvider>
-        <div className="min-h-screen bg-black dark flex flex-col">
-          <Navigation />
-          <main className="flex-1">
-            <Router />
-          </main>
-          <Footer />
-        </div>
-        <Toaster />
-      </TooltipProvider>
+      <LanguageProvider>
+        <CartProvider>
+          <TooltipProvider>
+            <div className="min-h-screen bg-background text-foreground flex flex-col">
+              <Navigation />
+              <main className="flex-1">
+                <Router />
+              </main>
+              <Footer />
+            </div>
+            <Toaster />
+          </TooltipProvider>
+        </CartProvider>
+      </LanguageProvider>
     </QueryClientProvider>
   );
 }

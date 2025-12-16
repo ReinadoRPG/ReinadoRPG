@@ -1,63 +1,107 @@
-import { Card } from "@/components/ui/card";
+import { useState } from "react";
+import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { ShoppingCart } from "lucide-react";
-import { SiWhatsapp } from "react-icons/si";
+import { Plus, ChevronDown, ChevronUp } from "lucide-react";
+import { useCart } from "@/context/CartContext";
 
 interface ShopItemProps {
   id: string;
   name: string;
   description: string;
   price: number;
-  icon?: React.ReactNode;
+  icon: React.ReactNode;
   popular?: boolean;
+  packageItems?: string[];
 }
 
-export default function ShopItem({ id, name, description, price, icon, popular }: ShopItemProps) {
-  const handleBuy = () => {
-    const message = encodeURIComponent(
-      `Ola! Gostaria de comprar os seguintes itens:\n${name} - R$ ${price.toFixed(2)}\nTotal: R$ ${price.toFixed(2)}`
-    );
-    const whatsappUrl = `https://wa.me/5514998199235?text=${message}`;
-    window.open(whatsappUrl, "_blank");
+export default function ShopItem({
+  id,
+  name,
+  description,
+  price,
+  icon,
+  popular,
+  packageItems,
+}: ShopItemProps) {
+  const [showPackage, setShowPackage] = useState(false);
+  const { addItem } = useCart();
+
+  const handleAddToCart = () => {
+    addItem({ id, name, price });
   };
 
   return (
     <Card
-      className="bg-black/70 backdrop-blur-sm border-amber-900/50 p-6 flex flex-col gap-4 relative overflow-visible"
-      data-testid={`card-shop-item-${id}`}
+      className="bg-stone-900/90 dark:bg-stone-900/90 border-amber-900/50 relative overflow-visible"
+      data-testid={`shop-item-${id}`}
     >
       {popular && (
-        <Badge className="absolute -top-2 -right-2 bg-amber-600 text-white font-medieval">
+        <Badge
+          className="absolute -top-2 -right-2 bg-amber-600 text-white font-medieval"
+          data-testid={`badge-popular-${id}`}
+        >
           Popular
         </Badge>
       )}
 
-      <div className="flex items-start gap-4">
-        {icon && (
-          <div className="w-12 h-12 bg-amber-900/30 rounded-md flex items-center justify-center text-amber-400">
-            {icon}
+      <CardHeader className="flex flex-row items-center gap-4 pb-2">
+        <div className="text-amber-400">{icon}</div>
+        <div className="flex-1">
+          <h3 className="font-medieval text-lg text-amber-300">{name}</h3>
+        </div>
+      </CardHeader>
+
+      <CardContent className="space-y-4">
+        <p className="font-body text-amber-200/80 text-sm">{description}</p>
+
+        {packageItems && packageItems.length > 0 && (
+          <div>
+            <Button
+              variant="ghost"
+              size="sm"
+              className="text-amber-400 w-full justify-between"
+              onClick={() => setShowPackage(!showPackage)}
+              data-testid={`button-view-package-${id}`}
+            >
+              {showPackage ? "Fechar" : "Ver Pacote"}
+              {showPackage ? (
+                <ChevronUp className="w-4 h-4" />
+              ) : (
+                <ChevronDown className="w-4 h-4" />
+              )}
+            </Button>
+
+            {showPackage && (
+              <div className="mt-2 bg-stone-800/50 rounded-lg p-3 space-y-1">
+                {packageItems.map((item, index) => (
+                  <p
+                    key={index}
+                    className="text-amber-200/70 text-xs font-body flex items-start gap-2"
+                  >
+                    <span className="text-amber-500">-</span>
+                    {item}
+                  </p>
+                ))}
+              </div>
+            )}
           </div>
         )}
-        <div className="flex-1">
-          <h3 className="font-medieval text-xl text-amber-100">{name}</h3>
-          <p className="font-body text-amber-300/70 text-sm mt-1">{description}</p>
-        </div>
-      </div>
 
-      <div className="flex items-center justify-between gap-4 mt-auto flex-wrap">
-        <span className="font-medieval text-2xl text-amber-400" data-testid={`text-price-${id}`}>
-          R$ {price.toFixed(2)}
-        </span>
-        <Button
-          onClick={handleBuy}
-          className="bg-green-600 text-white font-medieval gap-2"
-          data-testid={`button-buy-${id}`}
-        >
-          <SiWhatsapp className="w-4 h-4" />
-          Comprar
-        </Button>
-      </div>
+        <div className="flex items-center justify-between pt-2 gap-2 flex-wrap">
+          <span className="font-medieval text-xl text-amber-400">
+            R$ {price.toFixed(2).replace(".", ",")}
+          </span>
+          <Button
+            className="bg-amber-700 text-white font-medieval gap-2"
+            onClick={handleAddToCart}
+            data-testid={`button-add-cart-${id}`}
+          >
+            <Plus className="w-4 h-4" />
+            Adicionar
+          </Button>
+        </div>
+      </CardContent>
     </Card>
   );
 }

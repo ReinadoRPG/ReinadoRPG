@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Card } from "@/components/ui/card";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useLocation } from "wouter";
 
 interface CarouselItem {
   id: string;
@@ -9,6 +10,7 @@ interface CarouselItem {
   description: string;
   icon: React.ReactNode;
   color: string;
+  link: string;
 }
 
 interface CarouselProps {
@@ -18,16 +20,14 @@ interface CarouselProps {
 }
 
 export default function Carousel({ items, autoPlay = true, interval = 5000 }: CarouselProps) {
-  const [currentIndex, setCurrentIndex] = useState(0);
   const [previousIndex, setPreviousIndex] = useState(-1);
   const [shuffledItems, setShuffledItems] = useState<CarouselItem[]>([]);
+  const [, setLocation] = useLocation();
 
   useEffect(() => {
-    // Shuffle items without repeating the previous one
     let newItems = [...items];
     let randomIndex = Math.floor(Math.random() * newItems.length);
     
-    // Ensure it's not the same as previous
     while (previousIndex !== -1 && randomIndex === previousIndex) {
       randomIndex = Math.floor(Math.random() * newItems.length);
     }
@@ -82,10 +82,18 @@ export default function Carousel({ items, autoPlay = true, interval = 5000 }: Ca
     setPreviousIndex(randomIndex);
   };
 
+  const handleClick = () => {
+    if (current.link) {
+      setLocation(current.link);
+    }
+  };
+
   return (
     <div className="relative w-full max-w-2xl mx-auto" data-testid="carousel-container">
       <Card
-        className={`${current.color} backdrop-blur-sm border-none p-8 text-center relative overflow-hidden`}
+        className={`${current.color} backdrop-blur-sm border-none p-8 text-center relative overflow-hidden cursor-pointer transition-transform hover:scale-[1.02]`}
+        onClick={handleClick}
+        data-testid={`carousel-card-${current.id}`}
       >
         <div className="flex items-center justify-center mb-4 text-5xl">
           {current.icon}
@@ -96,13 +104,14 @@ export default function Carousel({ items, autoPlay = true, interval = 5000 }: Ca
         <p className="font-body text-white/90 text-base">
           {current.description}
         </p>
+        <p className="mt-4 text-white/60 text-sm font-body">Clique para ver mais</p>
       </Card>
 
       <Button
         variant="ghost"
         size="icon"
-        onClick={handlePrev}
-        className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-16 text-amber-400 hover:text-amber-300"
+        onClick={(e) => { e.stopPropagation(); handlePrev(); }}
+        className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-12 text-amber-500 dark:text-amber-400"
         data-testid="button-carousel-prev"
       >
         <ChevronLeft className="w-6 h-6" />
@@ -111,8 +120,8 @@ export default function Carousel({ items, autoPlay = true, interval = 5000 }: Ca
       <Button
         variant="ghost"
         size="icon"
-        onClick={handleNext}
-        className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-16 text-amber-400 hover:text-amber-300"
+        onClick={(e) => { e.stopPropagation(); handleNext(); }}
+        className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-12 text-amber-500 dark:text-amber-400"
         data-testid="button-carousel-next"
       >
         <ChevronRight className="w-6 h-6" />
@@ -123,7 +132,7 @@ export default function Carousel({ items, autoPlay = true, interval = 5000 }: Ca
           <div
             key={item.id}
             className={`h-2 w-2 rounded-full transition-colors ${
-              current.id === item.id ? "bg-amber-400" : "bg-amber-900/50"
+              current.id === item.id ? "bg-amber-500 dark:bg-amber-400" : "bg-amber-900/50"
             }`}
           />
         ))}
