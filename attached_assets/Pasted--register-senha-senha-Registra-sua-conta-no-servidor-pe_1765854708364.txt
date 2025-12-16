@@ -1,0 +1,72 @@
+/register (senha) (senha)
+Registra sua conta no servidor pela primeira vez.
+/login (senha)
+Faz login na sua conta quando você entrar no servidor.
+/kit
+Abre a interface para selecionar e receber kits.
+/spawn
+Teleporta você de volta para o spawn principal.
+/pass
+Permite que você pegue o passe gratuito ou premium.
+/rtp
+Teleporta você para um local aleatório no mundo.
+/warp
+Abre a lista de locais públicos para onde você pode se teleportar.
+/createhome (nome)
+Cria um ponto de teleporte (home) na sua localização atual.
+/sethome (nome)
+Atualiza a localização de uma home existente.
+/home (nome)
+Teleporta você para a home especificada.
+/delhome (nome)
+Apaga uma de suas homes.
+/g (mensagem)
+Envia uma mensagem no chat global.
+/tell (jogador) (msg)
+Envia uma mensagem privada para outro jogador.
+/afk
+Marca você como "Ausente" (Away From Keyboard), ou tira a marcação de ausencia.
+/sit
+Permite que seu personagem se sente no chão.
+/ignoreplayer (nome)
+Bloqueia todas as mensagens de um jogador específico.
+/balance
+Mostra quanto dinheiro (money) você possui.
+/balancetop
+Exibe a lista dos jogadores mais ricos do servidor.
+/pay (jogador) (quantia)
+Paga uma quantia em dinheiro para outro jogador.
+/sell (item) (quantia)
+Vende itens do seu inventário.
+/sell blocks
+Vende blocos.
+/clan menu
+Abre a interface principal de gerenciamento do seu clã.
+/clan invite (jogador)
+Convida um jogador para o seu clã.
+/clan accept
+Aceita um convite para entrar em um clã.
+/clan deny
+Recusa um convite de clã.
+/clan kick (jogador)
+Remove um membro do seu clã.
+/clan setbase
+Define a base (home) do seu clã na sua localização.
+/clan base
+Teleporta você para a base do seu clã.
+/bendinggui
+Abre a interface de habilidades e magias.
+/level
+Exibe seu nível atual e progresso.
+/skin menu
+Abre o menu para alterar ou customizar sua skin.
+/discord
+Mostra o link do Discord oficial do servidor.
+/claim (nome)
+Possivelmente relacionado a proteger seu terreno.
+/ping
+Testa sua latência (conexão) com o servidor. (Resposta: Pong!)
+/jukebox
+Permite tocar músicas com bloco de notas.
+/helpop (mensagem)
+Envia uma mensagem de ajuda diretamente para a Staff online.
