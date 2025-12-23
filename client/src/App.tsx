@@ -13,6 +13,17 @@ import NotFound from "@/pages/not-found";
 import { CartProvider } from "@/context/CartContext";
 import { LanguageProvider } from "@/context/LanguageContext";
 
+/**
+ * 🔁 Fix para GitHub Pages + SPA (Wouter)
+ * Permite recarregar páginas como /regras sem dar 404
+ */
+const params = new URLSearchParams(window.location.search);
+const redirect = params.get("redirect");
+
+if (redirect) {
+  window.history.replaceState(null, "", redirect);
+}
+
 function Router() {
   return (
     <Switch>
