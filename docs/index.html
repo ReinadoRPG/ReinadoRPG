@@ -123,12 +123,98 @@
       .aviso-box button:hover {
         background: #b9962f;
       }
+
+      /* Sistema de Download Medieval */
+      .download-area {
+        margin: 40px auto;
+        text-align: center;
+        font-family: "Cinzel", serif;
+      }
+
+      .download-area p {
+        font-size: 18px;
+        margin-bottom: 12px;
+      }
+
+      .btn-download {
+        background: #4fa3ff;
+        color: white;
+        padding: 12px 26px;
+        border-radius: 10px;
+        text-decoration: none;
+        font-weight: bold;
+        font-size: 16px;
+        display: inline-block;
+        transition: 0.25s;
+      }
+
+      .btn-download:hover {
+        background: #2f8cff;
+      }
+
+      .popup-bg {
+        position: fixed;
+        inset: 0;
+        background: rgba(0,0,0,0.7);
+        display: none;
+        justify-content: center;
+        align-items: center;
+        z-index: 99999;
+      }
+
+      .popup-box {
+        background: rgba(20, 12, 6, 0.96);
+        border: 2px solid #d4af37;
+        color: #f5e6c8;
+        padding: 22px;
+        border-radius: 14px;
+        max-width: 340px;
+        width: 90%;
+        text-align: center;
+        box-shadow: 0 0 25px rgba(212,175,55,0.4);
+        animation: entrarAviso 0.4s ease-out;
+      }
+
+      .popup-box h2 {
+        color: #d4af37;
+        margin-bottom: 14px;
+      }
+
+      .popup-box button {
+        width: 100%;
+        margin-top: 10px;
+        padding: 10px;
+        border-radius: 8px;
+        border: none;
+        font-weight: bold;
+        cursor: pointer;
+      }
+
+      .btn-java { background: #4fa3ff; color: white; }
+      .btn-bedrock { background: #3ac46a; color: white; }
+      .btn-fechar { background: #b33a3a; color: white; }
     </style>
   </head>
 
   <body class="dark">
 
-    <!-- Áudio do sino medieval (embutido em texto) -->
+    <!-- Área de Download -->
+    <div class="download-area">
+      <p>📜 Baixe o grimório visual do Reino e aventure-se com estilo!</p>
+      <a class="btn-download" href="javascript:void(0)" onclick="abrirPopup()">Download</a>
+    </div>
+
+    <!-- Popup Download -->
+    <div id="popupDownload" class="popup-bg">
+      <div class="popup-box">
+        <h2>Escolha sua versão</h2>
+        <button class="btn-java" onclick="baixarJava()">Minecraft Java</button>
+        <button class="btn-bedrock" onclick="baixarBedrock()">Minecraft Bedrock</button>
+        <button class="btn-fechar" onclick="fecharPopup()">Cancelar</button>
+      </div>
+    </div>
+
+    <!-- Áudio do sino medieval -->
     <audio id="sinoMedieval" preload="auto">
       <source src="data:audio/mp3;base64,//uQxAAAAAAAAAAAAAAAAAAAAAAAWGluZwAAAA8AAAACAAACcQCA" type="audio/mp3">
     </audio>
@@ -138,8 +224,28 @@
 
     <div id="root"></div>
 
-    <!-- Script dos Avisos -->
+    <!-- Script Geral -->
     <script>
+      const popup = document.getElementById("popupDownload");
+
+      function abrirPopup() {
+        popup.style.display = "flex";
+      }
+
+      function fecharPopup() {
+        popup.style.display = "none";
+      }
+
+      function baixarJava() {
+        window.open("https://SEU-LINK-JAVA.zip", "_blank");
+        fecharPopup();
+      }
+
+      function baixarBedrock() {
+        window.open("https://SEU-LINK-BEDROCK.mcpack", "_blank");
+        fecharPopup();
+      }
+
       document.addEventListener("DOMContentLoaded", () => {
 
         const avisos = [
@@ -176,7 +282,6 @@
 
           container.appendChild(div);
 
-          // toca o sino ao aparecer
           sino.volume = 0.35;
           sino.play().catch(() => {});
 
