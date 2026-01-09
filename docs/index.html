@@ -91,52 +91,116 @@
         cursor: pointer;
       }
 
-      /* Download - APENAS ESSA PARTE MODIFICADA */
-      .download-area {
-        position: fixed; /* Fica fixo no topo */
+      /* GAVETA DE DOWNLOAD */
+      .gaveta-download-container {
+        position: fixed;
         top: 0;
-        left: 0;
-        right: 0;
-        text-align: center;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 1000;
+        width: 100%;
+        max-width: 500px;
         font-family: "Cinzel", serif;
-        z-index: 999; /* Um pouco menor que os avisos */
-        padding: 15px 20px;
-        background: rgba(10, 6, 3, 0.85); /* Fundo sutil para destacar */
-        backdrop-filter: blur(5px);
-        border-bottom: 1px solid #d4af37;
       }
 
-      .download-area p {
-        font-size: 18px;
-        margin-bottom: 10px;
+      /* Botão da gaveta (sempre visível) */
+      .btn-gaveta {
+        position: absolute;
+        top: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        background: rgba(20, 12, 6, 0.95);
+        border: 2px solid #d4af37;
+        border-bottom: none;
+        border-top-left-radius: 8px;
+        border-top-right-radius: 8px;
+        color: #d4af37;
+        padding: 8px 20px;
+        cursor: pointer;
+        font-weight: bold;
+        font-size: 14px;
+        z-index: 1002;
+        box-shadow: 0 0 10px rgba(212, 175, 55, 0.3);
+        transition: all 0.3s ease;
+        min-width: 120px;
+        text-align: center;
+      }
+
+      .btn-gaveta:hover {
+        background: rgba(30, 20, 10, 0.95);
+        box-shadow: 0 0 15px rgba(212, 175, 55, 0.5);
+      }
+
+      .btn-gaveta .seta {
+        display: inline-block;
+        margin-left: 8px;
+        transition: transform 0.3s ease;
+      }
+
+      .gaveta-fechada .seta {
+        transform: rotate(180deg);
+      }
+
+      /* Conteúdo da gaveta */
+      .gaveta-conteudo {
+        background: rgba(20, 12, 6, 0.95);
+        border: 2px solid #d4af37;
+        border-top: none;
+        border-radius: 0 0 12px 12px;
         color: #f5e6c8;
+        padding: 20px;
+        margin-top: 38px;
+        box-shadow: 0 0 20px rgba(212, 175, 55, 0.4);
+        transition: transform 0.4s ease, opacity 0.3s ease;
+        transform: translateY(0);
+        opacity: 1;
+      }
+
+      .gaveta-fechada .gaveta-conteudo {
+        transform: translateY(-100%);
+        opacity: 0;
+        pointer-events: none;
+      }
+
+      .mensagem-gaveta {
+        font-size: 18px;
+        margin-bottom: 20px;
+        color: #f5e6c8;
+        text-align: center;
         text-shadow: 0 0 8px rgba(212, 175, 55, 0.7);
       }
 
-      /* Botão transparente como pediu */
-      .btn-download {
+      /* Botão de download dentro da gaveta */
+      .btn-download-gaveta {
         background: transparent;
         border: 2px solid #d4af37;
         color: #d4af37;
-        padding: 10px 25px;
+        padding: 12px 30px;
         border-radius: 8px;
         text-decoration: none;
         font-weight: bold;
         font-size: 16px;
-        display: inline-block;
+        display: block;
+        width: fit-content;
+        margin: 0 auto;
         transition: all 0.3s ease;
-        box-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
+        box-shadow: 0 0 12px rgba(212, 175, 55, 0.5);
+        cursor: pointer;
       }
 
-      .btn-download:hover {
+      .btn-download-gaveta:hover {
         background: rgba(212, 175, 55, 0.1);
-        box-shadow: 0 0 15px rgba(212, 175, 55, 0.8);
+        box-shadow: 0 0 18px rgba(212, 175, 55, 0.8);
         transform: scale(1.05);
       }
 
-      /* Espaço para o conteúdo não ficar escondido atrás do fixed */
+      /* Espaço para o conteúdo não ficar escondido */
       body {
-        padding-top: 120px; /* Espaço para o download-area não cobrir conteúdo */
+        padding-top: 50px; /* Espaço apenas para o botão da gaveta */
+      }
+
+      .gaveta-aberta body {
+        padding-top: 180px; /* Espaço quando a gaveta está aberta */
       }
 
       .popup-bg {
@@ -184,10 +248,16 @@
 
   <body class="dark">
 
-    <!-- Área de Download - MODIFICADA -->
-    <div class="download-area">
-      <p>📜 Baixe o grimório visual do Reino e aventure-se com estilo!</p>
-      <a class="btn-download" href="javascript:void(0)" onclick="abrirPopup()">Download</a>
+    <!-- Gaveta de Download -->
+    <div class="gaveta-download-container gaveta-fechada" id="gavetaDownload">
+      <button class="btn-gaveta" onclick="alternarGaveta()">
+        📜 Download <span class="seta">▼</span>
+      </button>
+      
+      <div class="gaveta-conteudo">
+        <p class="mensagem-gaveta">Baixe o grimório visual do Reino e aventure-se com estilo!</p>
+        <button class="btn-download-gaveta" onclick="abrirPopup()">Baixar Grimório</button>
+      </div>
     </div>
 
     <!-- Popup Download -->
@@ -214,6 +284,22 @@
     <!-- Script -->
     <script>
       const popup = document.getElementById("popupDownload");
+      const gaveta = document.getElementById("gavetaDownload");
+      const body = document.body;
+
+      function alternarGaveta() {
+        const estaFechada = gaveta.classList.contains("gaveta-fechada");
+        
+        if (estaFechada) {
+          // Abrir gaveta
+          gaveta.classList.remove("gaveta-fechada");
+          body.style.paddingTop = "180px"; // Espaço para gaveta aberta
+        } else {
+          // Fechar gaveta
+          gaveta.classList.add("gaveta-fechada");
+          body.style.paddingTop = "50px"; // Espaço apenas para o botão
+        }
+      }
 
       function abrirPopup() {
         popup.style.display = "flex";
