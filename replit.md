@@ -11,6 +11,7 @@ Static landing page for the Brazilian Minecraft RPG server "ReinadoRPG Brasil", 
   - `assets/css/style.css` — global styles, purple theme
   - `assets/js/i18n.js` — multi-locale translations, defaults to `br`
   - `assets/js/main.js` — minor interactions (scroll, IP copy, etc.)
+  - `assets/js/shop-commands.js` — commands search/filter, shop, cart, terms gate, online players counter
   - `background.png` — hero background image (user-supplied)
   - `favicon.png` / `logo.png` — ReinadoRPG logo (user-supplied)
 
@@ -32,6 +33,12 @@ Static landing page for the Brazilian Minecraft RPG server "ReinadoRPG Brasil", 
 - Made-with: Feito com 💜 no Brasil.
 - Footer description: "O continente de Aeldrynn é dividido em 5 grandes regiões..."
 - Default locale set to `br` (Brazilian Portuguese); user can switch via dropdown.
+- Hero: real-time online players counter using `https://api.mcsrvstat.us/2/sd-br7.blazebr.com:25575` (refreshes every 60s).
+- Navbar: added "Comandos" and "Loja" links plus a cart button (Bootstrap offcanvas) with item count badge.
+- New section `#commands`: search input + category filter (Todos, Autenticação, Navegação, Social, Economia, Clãs, Outros) over 36 commands.
+- New section `#shop`: 7 shop items (Desbanimento, VIP Cavaleiro do Futuro, BronzeCoins 100/574/1050/2432/5000) with "POPULAR" tag, BRL pricing, and "Adicionar" buttons.
+- Cart flow: first "Adicionar" click prompts terms/privacy modal; on accept, item is added and acceptance flag stored in `localStorage.rpg_terms_accepted`. Cart persisted in `localStorage.rpg_cart`.
+- Checkout: "Comprar Tudo" opens `https://wa.me/5514998199235` with cart summary + total.
 
 ## Notes
 

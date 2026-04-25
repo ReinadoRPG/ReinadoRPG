@@ -36,8 +36,9 @@
           <!-- Sol Menü -->
           <ul class="navbar-nav navbar-left">
             <li class="nav-item"><a class="nav-link" href="#rules" data-i18n="nav_rules">Regras</a></li>
+            <li class="nav-item"><a class="nav-link" href="#commands" data-i18n="nav_commands">Comandos</a></li>
+            <li class="nav-item"><a class="nav-link" href="#shop" data-i18n="nav_shop">Loja</a></li>
             <li class="nav-item"><a class="nav-link" href="#tos" data-i18n="nav_tos">ToS</a></li>
-            <li class="nav-item"><a class="nav-link" href="#imprint" data-i18n="nav_imprint">Informações legais</a></li>
           </ul>
 
           <!-- Logo Ortada -->
@@ -49,6 +50,12 @@
           <ul class="navbar-nav navbar-right">
             <li class="nav-item"><a class="nav-link" href="#privacy" data-i18n="nav_privacy">Privacidade</a></li>
             <li class="nav-item"><a class="nav-link" href="#faq" data-i18n="nav_faq">FAQ</a></li>
+            <li class="nav-item">
+              <a class="nav-link cart-nav-btn" href="#" data-bs-toggle="offcanvas" data-bs-target="#cartOffcanvas" aria-label="Carrinho">
+                <i class="fas fa-shopping-cart"></i>
+                <span class="cart-count" id="cartCount">0</span>
+              </a>
+            </li>
             <li class="nav-item dropdown language-dropdown">
               <a class="nav-link" href="#" id="langDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 <img src="https://flagcdn.com/w40/br.png" alt="BR" class="flag-icon" id="currentFlag">
@@ -112,7 +119,11 @@
       <div class="container position-relative text-center text-lg-start">
         <div class="row align-items-center">
           <div class="col-lg-6">
-            <span class="badge bg-purple-subtle text-purple mb-3">Minecraft 1.21.x/26.+ • Purpur</span>
+            <span class="badge bg-purple-subtle text-purple mb-2">Minecraft 1.21.x/26.+ • Purpur</span>
+            <div class="players-online-badge mb-3" id="players-online">
+              <span class="status-dot"></span>
+              <span class="players-text">Carregando jogadores...</span>
+            </div>
             <h1 class="display-4 fw-bold mt-3 text-shadow fade-up" data-i18n="hero_title">Junte-se à Aventura!</h1>
             <p class="lead text-light-50 mb-4 fade-up delay-1" data-i18n="hero_subtitle">
               Explore, construa e torne-se uma lenda no continente de Aeldrynn com seus amigos!
@@ -168,6 +179,46 @@
                 </div>
               </div>
             </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Commands Section -->
+      <section id="commands" class="section bg-dark">
+        <div class="container">
+          <div class="section-title text-center fade-up">
+            <h2 data-i18n="commands_title">Comandos do Servidor</h2>
+            <p data-i18n="commands_subtitle">Busque e descubra todos os comandos disponíveis no servidor</p>
+          </div>
+          <div class="commands-search-wrap fade-up">
+            <i class="fas fa-search commands-search-icon"></i>
+            <input type="text" class="commands-search" id="commandsSearch" placeholder="Buscar comandos..." data-i18n-placeholder="commands_search_placeholder">
+          </div>
+          <div class="commands-categories fade-up" id="commandsCategories">
+            <button type="button" class="cat-btn active" data-category="all">Todos</button>
+            <button type="button" class="cat-btn" data-category="autenticacao">Autenticação</button>
+            <button type="button" class="cat-btn" data-category="navegacao">Navegação</button>
+            <button type="button" class="cat-btn" data-category="social">Social</button>
+            <button type="button" class="cat-btn" data-category="economia">Economia</button>
+            <button type="button" class="cat-btn" data-category="clas">Clãs</button>
+            <button type="button" class="cat-btn" data-category="outros">Outros</button>
+          </div>
+          <div class="commands-grid fade-up" id="commandsGrid">
+            <!-- Populated by JS -->
+          </div>
+          <p class="text-center text-light-50 mt-4 commands-empty" id="commandsEmpty" hidden>Nenhum comando encontrado.</p>
+        </div>
+      </section>
+
+      <!-- Shop Section -->
+      <section id="shop" class="section bg-dark">
+        <div class="container">
+          <div class="section-title text-center fade-up">
+            <h2 data-i18n="shop_title">Loja do Servidor</h2>
+            <p data-i18n="shop_subtitle">Adicione itens ao carrinho e finalize sua compra pelo WhatsApp</p>
+          </div>
+          <div class="row g-4" id="shopGrid">
+            <!-- Populated by JS -->
           </div>
         </div>
       </section>
@@ -450,8 +501,65 @@
       </div>
     </footer>
 
+    <!-- Cart Offcanvas -->
+    <div class="offcanvas offcanvas-end cart-offcanvas" tabindex="-1" id="cartOffcanvas" aria-labelledby="cartOffcanvasLabel">
+      <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="cartOffcanvasLabel"><i class="fas fa-shopping-cart me-2"></i>Seu Carrinho</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Fechar"></button>
+      </div>
+      <div class="offcanvas-body">
+        <div id="cartItems"></div>
+        <p class="cart-empty-msg text-center text-light-50 py-4" id="cartEmpty">Seu carrinho está vazio.</p>
+        <div class="cart-summary" id="cartSummary" hidden>
+          <div class="cart-total d-flex justify-content-between align-items-center mb-3">
+            <span>Total:</span>
+            <strong id="cartTotal">R$ 0,00</strong>
+          </div>
+          <button type="button" class="btn btn-success btn-lg w-100 mb-2" id="checkoutBtn">
+            <i class="fab fa-whatsapp me-2"></i> Comprar Tudo via WhatsApp
+          </button>
+          <button type="button" class="btn btn-outline-light btn-sm w-100" id="clearCartBtn">
+            <i class="fas fa-trash me-1"></i> Limpar carrinho
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Terms / Privacy Acceptance Modal -->
+    <div class="modal fade" id="termsModal" tabindex="-1" aria-labelledby="termsModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content terms-modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="termsModalLabel"><i class="fas fa-shield-alt me-2"></i>Políticas e Privacidade</h5>
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Fechar"></button>
+          </div>
+          <div class="modal-body">
+            <p>Antes de adicionar itens ao carrinho, leia e aceite os termos abaixo:</p>
+            <ol class="terms-list">
+              <li><strong>Conteúdo digital:</strong> as compras são produtos digitais entregues no servidor de Minecraft ReinadoRPG e estão sujeitas à legislação brasileira de comércio eletrônico.</li>
+              <li><strong>Reembolso:</strong> por se tratar de conteúdo digital, reembolsos seguem as regras descritas no nosso Termos de Uso.</li>
+              <li><strong>Privacidade:</strong> os dados informados durante a compra (incluindo seu contato pelo WhatsApp) serão usados apenas para processar e entregar o pedido, em conformidade com a LGPD.</li>
+              <li><strong>Pagamento:</strong> o pagamento é combinado diretamente com a equipe pelo WhatsApp <strong>+55 14 99819-9235</strong>.</li>
+              <li><strong>Sanções:</strong> compras não isentam o jogador das regras do servidor; violações podem resultar em sanções mesmo após a compra.</li>
+            </ol>
+            <div class="form-check mt-3">
+              <input class="form-check-input" type="checkbox" id="acceptTerms">
+              <label class="form-check-label" for="acceptTerms">
+                Li e concordo com as Políticas e a Privacidade.
+              </label>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-outline-light" data-bs-dismiss="modal">Cancelar</button>
+            <button type="button" class="btn btn-success" id="confirmTermsBtn" disabled>Aceitar e adicionar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <script src="assets/js/i18n.js"></script>
     <script src="assets/js/main.js"></script>
+    <script src="assets/js/shop-commands.js"></script>
   </body>
 </html>
